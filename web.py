@@ -1,5 +1,4 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from index import get_html_content
 
 hostName = "localhost"
 serverPort = 8080
@@ -13,8 +12,8 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-        content = get_html_content()
-        self.wfile.write(bytes(content, "utf-8"))
+        with open("index.html") as content:
+            self.wfile.write(bytes(content.read(), "utf-8"))
 
 
 if __name__ == "__main__":
